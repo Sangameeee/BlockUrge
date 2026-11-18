@@ -1,6 +1,6 @@
 # Block Urge
 
-**[Install from Firefox Add-ons](https://addons.mozilla.org/en-GB/firefox/addon/block-urge/)** · [Website](https://sangameeee.github.io/Block-Urge---website-blocker/)
+**[Install from Firefox Add-ons](https://addons.mozilla.org/en-GB/firefox/addon/block-urge/)** · [Website](https://sangameeee.github.io/BlockUrge/)
 
 A Firefox extension that makes impulsively visiting a site much harder. When
 you open a blocked site it asks why you're there, makes you wait out a
