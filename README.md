@@ -13,9 +13,7 @@ number of minutes you choose. When the time is up, the site is blocked again.
 | --- | --- |
 | ![Block page asking why you're opening the site](screenshots/blocked-reason.png) | ![Breathing timer counting down](screenshots/blocked-timer.png) |
 
-| YouTube search mode | Toolbar popup |
-| --- | --- |
-| ![YouTube mode: type what you'll watch and pick minutes](screenshots/blocked-youtube.png) | ![Popup offering YouTube search, Timed or Strict](screenshots/popup.png) ![Popup showing time left on an active pass](screenshots/popup-session.png) |
+
 
 | Settings | Visit report |
 | --- | --- |
