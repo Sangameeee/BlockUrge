@@ -7,6 +7,20 @@ you open a blocked site it asks why you're there, makes you wait out a
 breathing timer, and then (depending on the site's mode) lets you in for a
 number of minutes you choose. When the time is up, the site is blocked again.
 
+## Screenshots
+
+| Say why you're there | Breathe through the timer |
+| --- | --- |
+| ![Block page asking why you're opening the site](screenshots/blocked-reason.png) | ![Breathing timer counting down](screenshots/blocked-timer.png) |
+
+| YouTube search mode | Toolbar popup |
+| --- | --- |
+| ![YouTube mode: type what you'll watch and pick minutes](screenshots/blocked-youtube.png) | ![Popup offering YouTube search, Timed or Strict](screenshots/popup.png) ![Popup showing time left on an active pass](screenshots/popup-session.png) |
+
+| Settings | Visit report |
+| --- | --- |
+| ![Settings: breathing timer, max minutes, blocked sites](screenshots/options.png) | ![Report with weekly trend and logged reasons](screenshots/report.png) |
+
 ## Modes (set per site)
 
 | Mode | What happens when you open the site |
@@ -56,5 +70,7 @@ src/                   — the extension itself (everything that goes in the zip
   options.html/.css/.js — settings
   report.html/.css/.js — daily/weekly report
   icons/               — toolbar icons
+screenshots/           — images used in this README and on the website
+index.html             — GitHub Pages landing page
 no_zip/                — build script, publishing guides, built zips (never packaged)
 ```
