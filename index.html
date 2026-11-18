@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Block Urge – Firefox add-on to block distracting sites with a timer</title>
+  <meta name="description" content="Block Urge is a free Firefox add-on that blocks distracting websites. Say why you're visiting, wait out a breathing timer, then choose how many minutes you get. Strict mode, YouTube search-only mode, local-only data.">
+  <meta name="keywords" content="Firefox add-on, website blocker, block distracting sites, focus extension, YouTube blocker, productivity, mindful browsing, site blocker with timer">
+  <link rel="icon" type="image/png" href="src/icons/icon48.png">
+  <link rel="canonical" href="https://sangameeee.github.io/Block-Urge---website-blocker/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Block Urge – a Firefox site blocker that makes you pause">
+  <meta property="og:description" content="Say why you're there, breathe through a timer, then pick your minutes. Free and open source.">
+  <meta property="og:image" content="https://sangameeee.github.io/Block-Urge---website-blocker/src/icons/icon128.png">
+  <meta name="twitter:card" content="summary">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Block Urge",
+    "applicationCategory": "BrowserApplication",
+    "operatingSystem": "Firefox",
+    "softwareVersion": "1.1.1",
+    "description": "A Firefox add-on that blocks distracting websites. When you open a blocked site it asks why you're there, makes you wait out a breathing timer, then lets you in for the number of minutes you choose. Includes a strict mode and a YouTube search-only mode. All data stays on your device.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "downloadUrl": "https://addons.mozilla.org/en-GB/firefox/addon/block-urge/",
+    "installUrl": "https://addons.mozilla.org/en-GB/firefox/addon/block-urge/",
+    "sameAs": [
+      "https://addons.mozilla.org/en-GB/firefox/addon/block-urge/",
+      "https://github.com/Sangameeee/Block-Urge---website-blocker"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a good Firefox add-on to stop me from opening distracting websites?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Block Urge is a free Firefox add-on built for this. Instead of a hard block that you end up disabling, it asks why you're opening the site, makes you wait out a short breathing timer, and then lets you choose how many minutes you get. When the time is up, the site is blocked again. Install it from addons.mozilla.org/firefox/addon/block-urge/." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I block the YouTube home feed but still search for videos?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Block Urge has a YouTube search mode: after the timer you type what you're going to watch, and YouTube opens straight on the search results, skipping the recommended feed." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I block a site completely with no way around it?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Strict mode has no way through, and strict sites are locked, so they can't be removed or switched to another mode from the settings." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Block Urge collect my data?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Everything is stored locally in the browser. There is no server, account, sync or tracking." }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0a0b0d;
+      --panel: #141619;
+      --border: #24262b;
+      --text: #e9eaec;
+      --text-dim: #8a8f98;
+      --alarm: #ff3b30;
+      --calm: #2dd4bf;
+      font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--text); }
+    body { line-height: 1.6; }
+    a { color: var(--calm); }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+    header { padding: 72px 0 40px; text-align: center; }
+    .logo { width: 80px; height: 80px; border-radius: 18px; }
+    h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); line-height: 1.1; margin: 20px 0 12px; letter-spacing: -0.02em; }
+    h1 span { color: var(--alarm); }
+    .lead { font-size: 1.15rem; color: var(--text-dim); max-width: 560px; margin: 0 auto 32px; }
+
+    .buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 22px; border-radius: 12px; font-weight: 700;
+      text-decoration: none; font-size: 1rem;
+    }
+    .btn-primary { background: var(--alarm); color: #fff; }
+    .btn-primary:hover { background: #ff554b; }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--panel); }
+    .btn-ghost:hover { border-color: var(--text-dim); }
+    .btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .meta { margin-top: 14px; font-size: 0.85rem; color: var(--text-dim); }
+
+    section { padding: 40px 0; border-top: 1px solid var(--border); }
+    h2 { font-size: 1.5rem; margin: 0 0 20px; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: s; }
+    .step { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .step::before {
+      counter-increment: s; content: counter(s);
+      display: inline-grid; place-items: center; width: 30px; height: 30px;
+      border-radius: 50%; background: var(--alarm); color: #fff; font-weight: 800; margin-bottom: 10px;
+    }
+    .step h3 { margin: 0 0 6px; font-size: 1.05rem; }
+    .step p { margin: 0; color: var(--text-dim); font-size: 0.95rem; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--text-dim); font-weight: 600; }
+    td:first-child { font-weight: 700; white-space: nowrap; }
+
+    ul.features { padding-left: 20px; margin: 0; }
+    ul.features li { margin-bottom: 8px; }
+    ul.features li::marker { color: var(--calm); }
+
+    details { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 10px; }
+    summary { cursor: pointer; font-weight: 700; }
+    details p { margin: 10px 0 0; color: var(--text-dim); }
+
+    footer { padding: 32px 0 48px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+
+    @media (max-width: 640px) {
+      header { padding-top: 48px; }
+      .steps { grid-template-columns: 1fr; }
+      td:first-child { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img class="logo" src="src/icons/icon128.png" alt="Block Urge icon" width="80" height="80">
+      <h1>Pause the <span>urge</span>.<br>Keep the internet.</h1>
+      <p class="lead">
+        Block Urge is a free Firefox add-on that blocks distracting websites without locking you out for good.
+        It asks why you're there, makes you breathe through a timer, then gives you only the minutes you ask for.
+      </p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="https://addons.mozilla.org/en-GB/firefox/addon/block-urge/" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 14.6V18h-2v-1.4l-4.3-4.3 1.4-1.4L11 13.8V6h2v7.8l2.9-2.9 1.4 1.4Z"/></svg>
+          Add to Firefox
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/Sangameeee/Block-Urge---website-blocker" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5Z"/></svg>
+          Source on GitHub
+        </a>
+      </div>
+      <p class="meta">Free · Open source · No account · Your data never leaves your browser</p>
+    </header>
+
+    <section>
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>Say why</h3>
+          <p>Open a blocked site and you're asked what you came for. Every reason is logged so you can look back later.</p>
+        </div>
+        <div class="step">
+          <h3>Breathe</h3>
+          <p>Wait out a breathing timer (5 seconds to 10 minutes). It pauses if you switch tabs, so you can't skip it.</p>
+        </div>
+        <div class="step">
+          <h3>Pick your minutes</h3>
+          <p>Choose how long you need. When the time runs out, every tab on that site goes back to the block page.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Three modes, set per site</h2>
+      <table>
+        <thead><tr><th>Mode</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr><td>Timed</td><td>Reason, timer, then the minutes you choose. Blocked again when they run out.</td></tr>
+          <tr><td>YouTube search</td><td>After the timer you type what you're going to watch. YouTube opens on the search results and skips the home feed.</td></tr>
+          <tr><td>Strict</td><td>No way through. Strict sites are locked, so you can't remove them in a weak moment.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Features</h2>
+      <ul class="features">
+        <li>Block the current site from the toolbar in one click.</li>
+        <li>Blocking <code>reddit.com</code> also covers <code>www.</code>, <code>old.</code> and every other subdomain.</li>
+        <li>See the time left on your pass, or end it early with "I'm done, block it now".</li>
+        <li>Daily and weekly report of every attempt: when, why, and whether you went in.</li>
+        <li>Set a maximum number of minutes per visit (1 to 240).</li>
+        <li>No server, no account, no sync, no tracking. Everything stays in local storage.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>FAQ</h2>
+      <details>
+        <summary>Why not just block the site completely?</summary>
+        <p>Hard blocks tend to get switched off the first time you actually need the site. Block Urge adds friction instead: a reason and a pause are usually enough to stop a habit visit, and when you really need the site you can still get in for a set time.</p>
+      </details>
+      <details>
+        <summary>Can I block the YouTube home feed but still search?</summary>
+        <p>Yes. Use YouTube search mode. You land straight on the results for what you said you'd watch.</p>
+      </details>
+      <details>
+        <summary>Does it work in Chrome?</summary>
+        <p>Block Urge is currently published for Firefox (version 140 and newer).</p>
+      </details>
+      <details>
+        <summary>Does it collect any data?</summary>
+        <p>No. All settings and logs stay in your browser's local storage. Nothing is sent anywhere.</p>
+      </details>
+    </section>
+
+    <footer>
+      <p>
+        <a href="https://addons.mozilla.org/en-GB/firefox/addon/block-urge/">Firefox Add-ons</a> ·
+        <a href="https://github.com/Sangameeee/Block-Urge---website-blocker">GitHub</a>
+      </p>
+      <p>Block Urge v1.1.1</p>
+    </footer>
+  </div>
+</body>
+</html>

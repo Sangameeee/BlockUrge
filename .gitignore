@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+__MACOSX/
+
+# Chrome build (kept local, not published)
+no_zip/chrome_test/
+no_zip/publish_chrome.md
+no_zip/dist/*chrome*
+
+# Built zips and archives
+no_zip/dist/
+Archive.zip
+*.zip

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blocked</title>
+<link rel="stylesheet" href="blocked.css" />
+</head>
+<body>
+  <main class="wrap">
+    <p class="notice hidden" id="expiredNotice">Time's up. Your pass for this site has ended.</p>
+    <h1 class="warning">WHY ARE YOU HERE.<br>YOU SHOULDN'T BE HERE.</h1>
+    <p class="site-line">You tried to reach <span id="siteName">this site</span>.</p>
+
+    <!-- step 1: reason (or, for YouTube, what exactly to search) -->
+    <section class="panel" id="askPanel">
+      <form id="askForm">
+        <label for="answer" id="askLabel">Why are you trying to open this site right now?</label>
+        <textarea id="answer" rows="3" placeholder="Be honest. This gets saved."></textarea>
+        <p class="error hidden" id="askError">Write a little more than that.</p>
+        <button type="submit" id="startBtn" class="btn primary">Start the timer</button>
+      </form>
+    </section>
+
+    <!-- step 2: breathing pause -->
+    <section class="panel hidden" id="timerPanel">
+      <p class="breathe-instruction">Take a deep breath.</p>
+      <div class="timer-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+          <circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52"></circle>
+        </svg>
+        <span class="timer-num" id="timerNum">30</span>
+      </div>
+      <p class="breathe-sub" id="breatheSub">In through the nose. Out slowly. Let the urge pass.</p>
+    </section>
+
+    <!-- step 3: how long -->
+    <section class="panel hidden" id="minutesPanel">
+      <p class="step-title" id="minutesTitle">How many minutes do you need?</p>
+      <p class="end-message" id="minutesSub">When the time is up, the site gets blocked again.</p>
+      <div class="hidden" id="ytQueryBox">
+        <label for="ytQuery">What are you going to watch? Type the title or topic.</label>
+        <input id="ytQuery" type="text" placeholder="e.g. React useEffect cleanup explained" />
+      </div>
+      <div class="chips" id="presetChips"></div>
+      <form class="custom-row" id="customForm" novalidate>
+        <input id="customMinutes" type="number" min="1" step="1" inputmode="numeric" placeholder="Other" aria-label="Custom minutes" />
+        <span class="unit">min</span>
+        <button type="submit" class="btn primary inline">Go</button>
+      </form>
+      <p class="error hidden" id="minutesError"></p>
+      <button class="btn secondary closeBtn">Never mind, close this tab</button>
+    </section>
+
+    <!-- strict: dead end -->
+    <section class="panel hidden" id="endPanel">
+      <p class="end-message" id="endMessage">This site is on your strict list. There's no way through from here. Close the tab and go do the other thing.</p>
+      <button class="btn secondary closeBtn">Close this tab</button>
+    </section>
+  </main>
+  <script src="storage.js"></script>
+  <script src="blocked.js"></script>
+</body>
+</html>

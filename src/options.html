@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Block Urge — Settings</title>
+<link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>Block Urge — Settings</h1>
+
+    <section class="card warn hidden" id="permCard">
+      <h2>Blocking is off</h2>
+      <p class="hint">The extension needs access to all websites to notice when you open a blocked one. Nothing is read or sent anywhere.</p>
+      <button id="permBtn" class="btn primary">Allow access</button>
+    </section>
+
+    <section class="card">
+      <h2>Breathing timer</h2>
+      <p class="hint">How long you have to wait before you can pick a time.</p>
+      <div class="stepper" data-key="timerSeconds">
+        <button class="step-btn" data-dir="-1" aria-label="Decrease">−</button>
+        <input type="number" id="timerSeconds" aria-label="Timer seconds" />
+        <span class="unit">seconds</span>
+        <button class="step-btn" data-dir="1" aria-label="Increase">+</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Max time per visit</h2>
+      <p class="hint">The most minutes you can give yourself after the timer. When they run out, the site gets blocked again.</p>
+      <div class="stepper" data-key="maxSessionMinutes">
+        <button class="step-btn" data-dir="-1" aria-label="Decrease">−</button>
+        <input type="number" id="maxSessionMinutes" aria-label="Max minutes" />
+        <span class="unit">minutes</span>
+        <button class="step-btn" data-dir="1" aria-label="Increase">+</button>
+      </div>
+      <p class="saved hidden" id="savedMsg">Saved</p>
+    </section>
+
+    <section class="card">
+      <h2>Add a site to block</h2>
+      <div class="add-row">
+        <input id="newSite" type="text" placeholder="example.com" />
+        <select id="newMode" aria-label="Mode">
+          <option value="timed">Timed</option>
+          <option value="strict">Strict</option>
+        </select>
+        <button id="addBtn" class="btn primary">Block it</button>
+      </div>
+      <p class="error hidden" id="addError">That doesn't look like a website address.</p>
+      <ul class="modes">
+        <li><b>Timed</b>: give a reason, wait out the timer, pick how many minutes, then it's blocked again.</li>
+        <li><b>Strict</b>: no way through. Strict sites are locked: they can't be removed or loosened.</li>
+        <li><b>YouTube search</b> (YouTube only): give a reason, wait out the timer, then pick minutes and type what you'll watch. YouTube opens straight on the search results for it instead of the home feed.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Blocked sites <span id="siteCount" class="count"></span></h2>
+      <div class="table-scroll">
+        <table id="sitesTable">
+          <thead>
+            <tr><th>Site</th><th>Mode</th><th>Attempts</th><th>Last attempt</th><th></th></tr>
+          </thead>
+          <tbody id="sitesBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <a class="btn primary link-btn" id="reportLink" href="report.html" target="_blank">Open visit report</a>
+    </section>
+  </main>
+  <script src="storage.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

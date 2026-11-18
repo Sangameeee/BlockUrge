@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Block Urge — Report</title>
+<link rel="stylesheet" href="report.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>Visit report</h1>
+
+    <div class="summary" id="summaryCards"></div>
+
+    <section class="card">
+      <h2>This week's trend</h2>
+      <div id="trendChart" class="chart"></div>
+    </section>
+
+    <section class="card">
+      <h2>Tally by site</h2>
+      <table>
+        <thead><tr><th>Site</th><th>Total attempts</th><th>Last 7 days</th><th>Today</th></tr></thead>
+        <tbody id="tallyBody"></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Today's attempts</h2>
+      <table>
+        <thead><tr><th>Time</th><th>Site</th><th>Reason given</th><th>Outcome</th></tr></thead>
+        <tbody id="todayBody"></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="storage.js"></script>
+  <script src="report.js"></script>
+</body>
+</html>

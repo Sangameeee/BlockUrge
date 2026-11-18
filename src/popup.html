@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Block Urge</title>
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="pop">
+    <h2>Block Urge</h2>
+    <p class="current" id="currentHost">—</p>
+
+    <div id="stateAsk" class="state hidden">
+      <p class="q">Block this site? Pick how it should behave:</p>
+      <button id="ytBtn" class="btn primary hidden">YouTube search mode</button>
+      <button id="timedBtn" class="btn primary">Timed: reason, timer, minutes</button>
+      <button id="strictBtn" class="btn danger">Strict: no way through</button>
+      <p class="hint" id="strictConfirm"></p>
+    </div>
+
+    <div id="stateDone" class="state hidden">
+      <p class="done-msg">✓ Blocked. It's on the list now.</p>
+    </div>
+
+    <div id="stateAlready" class="state hidden">
+      <p class="done-msg" id="alreadyMsg">This site is blocked.</p>
+    </div>
+
+    <div id="stateSession" class="state hidden">
+      <p class="q">Time left on this site:</p>
+      <p class="countdown" id="countdown">--:--</p>
+      <button id="endBtn" class="btn secondary">I'm done, block it now</button>
+    </div>
+
+    <hr />
+    <a href="#" id="openOptions">Manage blocked sites</a>
+    <a href="#" id="openReport">View report</a>
+  </div>
+  <script src="storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
